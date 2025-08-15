@@ -1,5 +1,0 @@
-backend/
-frontend/
-**/node_modules/
-.git/
-.gitignore
