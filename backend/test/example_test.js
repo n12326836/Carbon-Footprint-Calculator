@@ -18,7 +18,7 @@ describe('AddEmission Function Test', () => {
     // Mock request data
     const req = {
       user: { id: new mongoose.Types.ObjectId() },
-      body: { type: 'fuel', subtype: 'petrol', amount: 10, unit: 'L', factor: 2.03, note: 'test' }
+      body: { type: 'fuel', amount: 10, unit: 'L', factor: 2.03, note: 'test' }
     };
 
     // Mock emission that would be created
@@ -52,7 +52,7 @@ describe('AddEmission Function Test', () => {
     // Mock request data
     const req = {
       user: { id: new mongoose.Types.ObjectId() },
-      body: { type: 'fuel', subtype: 'petrol', amount: 10, unit: 'L', factor: 2.31, note: 'test' }
+      body: { type: 'fuel',  amount: 10, unit: 'L', factor: 2.31, note: 'test' }
     };
 
     // Mock response object
@@ -83,7 +83,6 @@ describe('UpdateEmission Function Test', () => {
     const existingEmission = {
       _id: emissionId,
       type: 'fuel',
-      subtype: 'petrol',
       amount: 10,
       unit: 'L',
       factor: 2.31,
@@ -96,7 +95,7 @@ describe('UpdateEmission Function Test', () => {
     // Mock request & response
     const req = {
       params: { id: emissionId },
-      body: { type: 'fuel', subtype: 'diesel', amount: 15, unit: 'L', factor: 2.68, note: 'updated' }
+      body: { type: 'fuel', amount: 15, unit: 'L', factor: 2.68, note: 'updated' }
     };
     const res = {
       json: sinon.spy(), 
@@ -107,8 +106,7 @@ describe('UpdateEmission Function Test', () => {
     
     await updateEmission(req, res);
 
-    // Assertions（按常见实现逐字段赋值）
-    expect(existingEmission.subtype).to.equal('diesel');
+    // Assertions
     expect(existingEmission.amount).to.equal(15);
     expect(existingEmission.factor).to.equal(2.68);
     expect(existingEmission.note).to.equal('updated');
