@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosConfig';
-import TaskForm from '../components/TaskForm';
+import EmissionForm from '../components/EmissionForm';
 import TaskList from '../components/TaskList';
 import { useAuth } from '../context/AuthContext';
 
@@ -10,26 +10,26 @@ const Tasks = () => {
   const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchALL = async () => {
       try {
-        const response = await axiosInstance.get('/api/tasks', {
+        const response = await axiosInstance.get('/api/emission', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setTasks(response.data);
       } catch (error) {
-        alert('Failed to fetch tasks.');
+        alert('Failed to fetch emissions.');
       }
     };
 
-    fetchTasks();
+    fetchALL();
   }, [user]);
 
   return (
     <div className="container mx-auto p-6">
-      <TaskForm
-        tasks={tasks}
-        setTasks={setTasks}
-        editingTask={editingTask}
+      <EmissionForm
+        emissions={tasks}
+        setEmissions={setTasks}
+        editing={editingTask}
         setEditingTask={setEditingTask}
       />
       <TaskList tasks={tasks} setTasks={setTasks} setEditingTask={setEditingTask} />

@@ -9,10 +9,12 @@ dotenv.config();
 
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', require('./routes/authRoutes'));
-//app.use('/api/tasks', require('./routes/taskRoutes'));
+//app.use('', require('./routes/taskRoutes'));
+app.use('/api/emission',require('./routes/emissionRoutes'))
 
 // Export the app object for testing
 if (require.main === module) {
@@ -22,5 +24,13 @@ if (require.main === module) {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   }
 
+app.use((req, res) => res.status(404).json({message: 'Not Found'}));
+
+app.use ((err,_req, res,_next) => {
+  console.error(err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Server Error'
+  });
+});
 
 module.exports = app

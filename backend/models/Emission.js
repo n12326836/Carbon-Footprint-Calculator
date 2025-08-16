@@ -8,7 +8,8 @@ const EmissionSchema = new mongoose.Schema({
   amount:  { type: Number, required: true },
   unit:    { type: String, required: true }, // 'L', 'kWh', ...
   factor:  { type: Number, required: true },
-  note:    { type: String }
+  note:    { type: String },
+  carbon:  { type: Number, default: 0 }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Emission', EmissionSchema);
