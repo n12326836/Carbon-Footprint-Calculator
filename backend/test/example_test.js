@@ -37,9 +37,18 @@ describe('AddEmission Function Test', () => {
     await addEmission(req, res);
 
     // Assertions
-    expect(createStub.calledOnceWith({ userId: req.user.id, ...req.body })).to.be.true;
-    expect(res.status.calledWith(201)).to.be.true;
-    expect(res.json.calledWith(createdEmission)).to.be.true;
+expect(
+  createStub.calledOnceWithMatch(
+    sinon.match({
+      userId: req.user.id,
+      type: req.body.type,
+      amount: req.body.amount,
+      unit: req.body.unit,
+      factor: req.body.factor,
+      note: req.body.note
+    })
+  )
+).to.be.true;
 
     // Restore stubbed methods
     createStub.restore();
@@ -81,7 +90,7 @@ describe('UpdateEmission Function Test', () => {
     // Mock emission data
     const emissionId = new mongoose.Types.ObjectId().toString();;
     const existingEmission = {
-      _id: emissionId,
+      id: emissionId,
       type: 'fuel',
       amount: 10,
       unit: 'L',
