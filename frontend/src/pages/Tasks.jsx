@@ -30,9 +30,9 @@ const Tasks = () => {
         emissions={tasks}
         setEmissions={setTasks}
         editing={editingTask}
-        setEditingTask={setEditingTask}
+        setEditing={setEditingTask}
       />
-      <TaskList tasks={tasks} setTasks={setTasks} setEditingTask={setEditingTask} />
+      <TaskList tasks={tasks} setTasks={setTasks} setEditing={setEditingTask} />
     </div>
   );
 };

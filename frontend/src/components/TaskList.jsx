@@ -1,8 +1,9 @@
 import { useAuth } from '../context/AuthContext';
-import axiosInstance from '../axiosConfig'
+import axiosInstance from '../axiosConfig';
 import { useState } from 'react';
 
-const TaskList = ({ tasks, setTasks, setEditingTask }) => {
+
+const TaskList = ({ tasks, setTasks, setEditing}) => {
   const { user } = useAuth();
   const [view, setView] = useState('cards'); // 'cards' | 'table'
   
@@ -11,7 +12,7 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
       await axiosInstance.delete(`/api/emission/${taskId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      setTasks(tasks.filter((task) => task._id !== taskId));
+      setTasks(prev => prev.filter((t) => t._id !== taskId));
     } catch (error) {
       alert('Failed to delete emission record.');
     }
@@ -38,7 +39,7 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
           <p className="text-sm text-gray-500">{task.createdAt ? new Date(task.createdAt).toLocaleString() : ''}</p>
           <div className="mt-2">
             <button
-              onClick={() => setEditingTask(task)}
+              onClick={() => setEditing(task)}
               className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
             >
               Edit
@@ -82,7 +83,7 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
                 </td>
                 <td className="border p-2">
                   <button
-                    onClick={() => setEditingTask(e)}
+                    onClick={() => setEditing(e)}
                     className="mr-2 bg-yellow-500 text-white px-2 py-1 rounded"
                   >
                     Edit
