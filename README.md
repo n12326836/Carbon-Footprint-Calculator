@@ -83,3 +83,5 @@ Auth uses **JWT**; authenticated users can **Create / Read / Update / Delete** e
 - **Backend:** Node.js, Express, Mongoose  
 - **DB:** MongoDB Atlas (cloud)  
 - **Deploy:** AWS EC2, Nginx (static frontend + reverse proxy `/api`), PM2 for backend, GitHub Actions (CI/CD)
+
+
